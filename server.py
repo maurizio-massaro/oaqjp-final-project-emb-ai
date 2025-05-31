@@ -11,12 +11,9 @@ def sent_analyzer():
     """Analyze emotions from user input provided via query parameter."""
     text_to_analyze = request.args.get("textToAnalyze")
 
-    if not text_to_analyze:
-        return "No text provided for analysis.", 400
-
     response = emotion_detector(text_to_analyze)
 
-    if response.get("status_code") == 200:
+    if response.get("status_code") == 200 or response.get("status_code") == 400:
         text_to_return = f"""
         For the given statement, the system response is:
         'anger': {response.get('anger')}, 'disgust': {response.get('disgust')}, 
@@ -25,7 +22,6 @@ def sent_analyzer():
         The dominant emotion is: {response.get('dominant_emotion')}  
         """
         return text_to_return
-
     return "Invalid input or an error occurred. Try again!", 500
 
 

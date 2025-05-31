@@ -13,6 +13,17 @@ def emotion_detector(text_to_analyze):
         }
     }
 
+    if not text_to_analyze or text_to_analyze.strip() == "":
+        return {
+            "anger": None,
+            "disgust": None,
+            "fear": None,
+            "joy": None,
+            "sadness": None,
+            "dominant_emotion": None,
+            "status_code": 400
+        }
+    
     response = requests.post(url, headers=headers, json=data)
 
     if response.status_code == 200:
