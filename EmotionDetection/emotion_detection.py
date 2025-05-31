@@ -20,6 +20,7 @@ def emotion_detector(text_to_analyze):
         emotion_scores = result['emotionPredictions'][0]['emotion']
         dominant_emotion = max(emotion_scores, key=emotion_scores.get)
         emotion_scores["dominant_emotion"] = dominant_emotion
+        emotion_scores["status_code"] = response.status_code
         return emotion_scores
     else:
-        return f"Request failed with status code {response.status_code}: {response.text}"
+        return {"status_code": response.status_code, "dominant_emotion":"failed to execute the query"}
